@@ -25,26 +25,26 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * Created by lebron on 17-5-27.
+ * Created by LeBron on 2017/5/28.
  */
 
-public class ScoreActivity extends BaseActivity {
-    @BindView(R.id.search_progressbar)
-    ProgressBar mProgressbar;
-    @BindView(R.id.search_recycler)
+public class ExamActivity extends BaseActivity {
+    @BindView(R.id.exam_recyclerview)
     RecyclerView mRecyclerView;
+    @BindView(R.id.exam_progressbar)
+    ProgressBar mProgressbar;
 
     private List<UserCourseModel> mDatas;
     private BaseQuickAdapter<UserCourseModel> mAdapter;
 
     public static void start(Context context) {
-        Intent intent = new Intent(context, ScoreActivity.class);
+        Intent intent = new Intent(context, ExamActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     protected int getContentViewResId() {
-        return R.layout.activity_score;
+        return R.layout.activity_exam;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class ScoreActivity extends BaseActivity {
     }
 
     private void getData() {
-        new IScoreImpl().getExamList(true, new IScore.OnGetScoreListener() {
+        new IScoreImpl().getExamList(false,new IScore.OnGetScoreListener() {
             @Override
             public void onFinished(List<UserCourseModel> list) {
                 if (mDatas == null) {
@@ -76,12 +76,13 @@ public class ScoreActivity extends BaseActivity {
             @Override
             protected void convert(BaseViewHolder baseViewHolder, UserCourseModel userCourseModel) {
                 baseViewHolder.setText(R.id.score_item_name, userCourseModel.getCourse().getName());
-                baseViewHolder.setText(R.id.score_item_score, "分数：" + userCourseModel.getScore());
-                baseViewHolder.setText(R.id.score_item_teacher, "授课教师：" + userCourseModel.getCourse().getTeacher());
+                baseViewHolder.setText(R.id.score_item_score, "考试时间：" + userCourseModel.getUpdatedAt());
+                baseViewHolder.setText(R.id.score_item_teacher, "考试地点：" + userCourseModel.getLocation());
             }
         };
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter.setEmptyView(getLayoutInflater().inflate(R.layout.common_empty_layout, (ViewGroup) mRecyclerView.getParent(), false));
         mRecyclerView.setAdapter(mAdapter);
     }
+
 }

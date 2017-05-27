@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,8 @@ public class UserFragment extends BaseFragment {
     TextView mPhoneView;
     @BindView(R.id.user_logout_btn)
     Button mLogoutBtn;
+    @BindView(R.id.user_progressbar)
+    ProgressBar mProgressbar;
 
     private UserModel mUserModel;
 
@@ -66,6 +69,7 @@ public class UserFragment extends BaseFragment {
                     Toast.makeText(getActivity(), "获取信息失败，请重新登录", Toast.LENGTH_SHORT).show();
                 }
             });
+            mProgressbar.setVisibility(View.VISIBLE);
         } else {
             mNameView.setText("你还没登录，请先登录");
             mLogoutBtn.setVisibility(View.GONE);
@@ -73,6 +77,7 @@ public class UserFragment extends BaseFragment {
     }
 
     private void updateUserState() {
+        mProgressbar.setVisibility(View.GONE);
         mAccountView.setText(mUserModel.getStudentId());
         mGenderView.setText(mUserModel.getGender());
         mCampusView.setText(mUserModel.getCampus());

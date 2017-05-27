@@ -46,7 +46,8 @@
                 android:layout_centerVertical="true"
                 android:text="3节课"
                 android:textColor="#4d000000"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone"/>
         </RelativeLayout>
 
         <View
