@@ -41,10 +41,14 @@
         <activity
             android:name=".message.NotificationDetailActivity"
             android:label="通知详情" />
-        <activity android:name=".search.ScoreActivity" />
+        <activity android:name=".search.ScoreActivity"
+            android:label="成绩查询"/>
         <activity
             android:name=".search.ExamActivity"
             android:label="考试安排" />
+        <activity
+            android:name=".search.CourseActivity"
+            android:label="课程表" />
     </application>
 
 </manifest>

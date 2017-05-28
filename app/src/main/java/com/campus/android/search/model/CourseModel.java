@@ -11,6 +11,8 @@ public class CourseModel extends BmobObject {
     private String teacher;
     private double credit;
     private int weekday;
+    private String time;
+    private String location;
 
     public String getName() {
         return name;
@@ -42,5 +44,21 @@ public class CourseModel extends BmobObject {
 
     public void setWeekday(int weekday) {
         this.weekday = weekday;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

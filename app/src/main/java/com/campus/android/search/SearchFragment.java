@@ -8,6 +8,8 @@ import android.widget.Toast;
 import com.campus.android.R;
 import com.campus.android.common.base.BaseFragment;
 import com.campus.android.common.utils.SharedPreferencesUtils;
+import com.campus.android.search.interactor.ICourse;
+import com.campus.android.search.interactor.ICourseImpl;
 import com.campus.android.search.interactor.IScore;
 import com.campus.android.search.interactor.IScoreImpl;
 import com.campus.android.search.model.MainItem;
@@ -41,6 +43,9 @@ public class SearchFragment extends BaseFragment {
         initData();
         initRecyclerView();
         getData();
+        if (!SharedPreferencesUtils.getUserLogined()) {
+            Toast.makeText(getActivity(), "请先登录", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void initRecyclerView() {
@@ -59,6 +64,12 @@ public class SearchFragment extends BaseFragment {
             public void onItemClick(View view, int i) {
                 switch (i) {
                     case 0:
+                        if (SharedPreferencesUtils.getUserLogined()) {
+                            CourseActivity.start(getActivity());
+                        } else {
+                            Toast.makeText(getActivity(), "请先登录", Toast.LENGTH_SHORT).show();
+                            LoginActivity.start(getActivity());
+                        }
                         break;
                     case 1:
                         if (SharedPreferencesUtils.getUserLogined()) {
@@ -99,6 +110,16 @@ public class SearchFragment extends BaseFragment {
                 if (mDatas != null && mDatas.size() == 3) {
                     mDatas.get(1).setNum(list.size());
                     mAdapter.notifyItemChanged(1);
+                }
+            }
+        });
+
+        new ICourseImpl().getCourseListSize(new ICourse.OnGetCourseSizeListener() {
+            @Override
+            public void onFinished(List<UserCourseModel> list) {
+                if (mDatas != null && mDatas.size() == 3) {
+                    mDatas.get(0).setNum(list.size());
+                    mAdapter.notifyItemChanged(0);
                 }
             }
         });

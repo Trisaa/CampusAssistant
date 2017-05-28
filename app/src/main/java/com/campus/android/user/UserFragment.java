@@ -66,11 +66,13 @@ public class UserFragment extends BaseFragment {
 
                 @Override
                 public void onResponseFailed() {
+                    mProgressbar.setVisibility(View.GONE);
                     Toast.makeText(getActivity(), "获取信息失败，请重新登录", Toast.LENGTH_SHORT).show();
                 }
             });
             mProgressbar.setVisibility(View.VISIBLE);
         } else {
+            mProgressbar.setVisibility(View.GONE);
             mNameView.setText("你还没登录，请先登录");
             mLogoutBtn.setVisibility(View.GONE);
         }
